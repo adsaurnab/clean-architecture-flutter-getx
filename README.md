@@ -1,0 +1,1 @@
+## Customized Personal Clean Architecture Project structure for Flutter using Getx.
