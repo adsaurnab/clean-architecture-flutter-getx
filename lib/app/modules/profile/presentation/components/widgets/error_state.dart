@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../../../core/constants/gap_constants.dart';
+
 class ErrorState extends StatelessWidget {
   const ErrorState({super.key, required this.message, required this.onRetry});
   final String message;
@@ -19,7 +21,7 @@ class ErrorState extends StatelessWidget {
               size: 48,
               color: colorScheme.error.withValues(alpha: 0.5),
             ),
-            const SizedBox(height: 16),
+            gapH16,
             Text(
               message,
               textAlign: TextAlign.center,
@@ -28,7 +30,7 @@ class ErrorState extends StatelessWidget {
                 fontSize: 14,
               ),
             ),
-            const SizedBox(height: 20),
+            gapH20,
             FilledButton.icon(
               onPressed: onRetry,
               icon: const Icon(Icons.refresh_rounded, size: 18),

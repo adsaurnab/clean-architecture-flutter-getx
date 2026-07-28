@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../../core/constants/gap_constants.dart';
 import '../../../data/model/home_model.dart';
 import 'product_image.dart';
 
@@ -27,7 +28,7 @@ class ProductCard extends StatelessWidget {
           child: Row(
             children: [
               ProductImage(imageUrl: product.image, colorScheme: colorScheme),
-              const SizedBox(width: 14),
+              gapW14,
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -39,7 +40,7 @@ class ProductCard extends StatelessWidget {
                         fontSize: 15,
                       ),
                     ),
-                    const SizedBox(height: 4),
+                    gapH4,
                     Text(
                       product.description,
                       style: TextStyle(
@@ -53,7 +54,7 @@ class ProductCard extends StatelessWidget {
                   ],
                 ),
               ),
-              const SizedBox(width: 8),
+              gapW8,
               Icon(
                 Icons.chevron_right_rounded,
                 color: colorScheme.onSurface.withValues(alpha: 0.3),

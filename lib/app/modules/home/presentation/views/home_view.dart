@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../../core/constants/gap_constants.dart';
 import '../controllers/home_controller.dart';
 import '../components/widgets/search_bar.dart';
 import '../components/widgets/empty_state.dart';
@@ -65,7 +66,7 @@ class HomeView extends GetView<HomeController> {
             ),
           ),
         ),
-        const SizedBox(width: 8),
+        gapW8,
       ],
     );
   }

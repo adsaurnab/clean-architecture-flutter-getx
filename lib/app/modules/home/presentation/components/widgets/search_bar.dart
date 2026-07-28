@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../../../core/constants/gap_constants.dart';
+
 class SearchBarWidget extends StatelessWidget {
   const SearchBarWidget({super.key, required this.colorScheme});
   final ColorScheme colorScheme;
@@ -14,13 +16,13 @@ class SearchBarWidget extends StatelessWidget {
       ),
       child: Row(
         children: [
-          const SizedBox(width: 14),
+          gapW14,
           Icon(
             Icons.search_rounded,
             color: colorScheme.onSurface.withValues(alpha: 0.4),
             size: 20,
           ),
-          const SizedBox(width: 10),
+          gapW10,
           Text(
             'Search products…',
             style: TextStyle(

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
+import 'app/core/app_theme/app_theme.dart';
 import 'app/core/helper/storage_helper.dart';
 import 'app/env/env.dart';
 import 'app/routes/app_pages.dart';
@@ -19,6 +20,7 @@ Future<void> main() async {
       initialRoute: AppPages.INITIAL,
       getPages: AppPages.routes,
       debugShowCheckedModeBanner: EnvConfig.instance.showDebugBanner,
+      theme: AppTheme.lightTheme,
     ),
   );
 }

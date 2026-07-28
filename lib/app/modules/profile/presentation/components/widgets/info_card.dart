@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../../../core/constants/gap_constants.dart';
+
 class InfoItem {
   const InfoItem({
     required this.icon,
@@ -51,7 +53,7 @@ class InfoCard extends StatelessWidget {
                         color: colorScheme.onPrimaryContainer,
                       ),
                     ),
-                    const SizedBox(width: 14),
+                    gapW14,
                     Expanded(
                       child: Text(
                         item.label,
@@ -69,7 +71,7 @@ class InfoCard extends StatelessWidget {
                           color: colorScheme.onSurface.withValues(alpha: 0.45),
                         ),
                       ),
-                    const SizedBox(width: 4),
+                    gapW4,
                     Icon(
                       Icons.chevron_right_rounded,
                       size: 18,

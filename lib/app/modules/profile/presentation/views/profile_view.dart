@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import '../../../../core/constants/gap_constants.dart';
 import '../../../home/presentation/components/widgets/error_state.dart';
 import '../components/widgets/avatar.dart';
 import '../components/widgets/info_card.dart';
@@ -31,7 +32,7 @@ class ProfileView extends GetView<ProfileController> {
             tooltip: 'Edit profile',
             onPressed: () {},
           ),
-          const SizedBox(width: 4),
+          gapW4,
         ],
       ),
       body: Obx(() {
@@ -53,14 +54,14 @@ class ProfileView extends GetView<ProfileController> {
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
           child: Column(
             children: [
-              const SizedBox(height: 16),
+              gapH16,
 
               Avatar(
                 imageUrl: profile.image,
                 name: profile.name,
                 colorScheme: colorScheme,
               ),
-              const SizedBox(height: 16),
+              gapH16,
               Text(
                 profile.name,
                 style: const TextStyle(
@@ -68,7 +69,7 @@ class ProfileView extends GetView<ProfileController> {
                   fontWeight: FontWeight.w700,
                 ),
               ),
-              const SizedBox(height: 4),
+              gapH4,
               Text(
                 profile.email,
                 style: TextStyle(
@@ -76,7 +77,7 @@ class ProfileView extends GetView<ProfileController> {
                   color: colorScheme.onSurface.withValues(alpha: 0.5),
                 ),
               ),
-              const SizedBox(height: 32),
+              gapH32,
 
               InfoCard(
                 colorScheme: colorScheme,
@@ -93,7 +94,7 @@ class ProfileView extends GetView<ProfileController> {
                   ),
                 ],
               ),
-              const SizedBox(height: 16),
+              gapH16,
 
               InfoCard(
                 colorScheme: colorScheme,
@@ -115,7 +116,7 @@ class ProfileView extends GetView<ProfileController> {
                   ),
                 ],
               ),
-              const SizedBox(height: 16),
+              gapH16,
 
               SizedBox(
                 width: double.infinity,
@@ -138,7 +139,7 @@ class ProfileView extends GetView<ProfileController> {
                   ),
                 ),
               ),
-              const SizedBox(height: 32),
+              gapH32,
             ],
           ),
         );

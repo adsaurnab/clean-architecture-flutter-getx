@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../../../core/constants/gap_constants.dart';
+
 class EmptyState extends StatelessWidget {
   const EmptyState({super.key});
 
@@ -15,7 +17,7 @@ class EmptyState extends StatelessWidget {
             size: 48,
             color: colorScheme.onSurface.withOpacity(0.3),
           ),
-          const SizedBox(height: 12),
+          gapH12,
           Text(
             'No products yet',
             style: TextStyle(
