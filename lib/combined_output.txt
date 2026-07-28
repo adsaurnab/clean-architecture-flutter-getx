@@ -1,0 +1,1798 @@
+
+================================================================================
+FILE: app/core/app_theme/app_colors.dart
+================================================================================
+
+import 'package:flutter/material.dart';
+
+/// Centralised color palette for both light and dark themes.
+class AppColors {
+  AppColors._();
+
+  // Brand
+  static const Color primary = Color(0xFF6C63FF);
+  static const Color primaryDark = Color(0xFF4A42D6);
+  static const Color accent = Color(0xFF00D4AA);
+
+  // Surfaces – Light
+  static const Color backgroundLight = Color(0xFFF8F9FE);
+  static const Color surfaceLight = Color(0xFFFFFFFF);
+  static const Color cardLight = Color(0xFFFFFFFF);
+
+  // Surfaces – Dark
+  static const Color backgroundDark = Color(0xFF0E0E1A);
+  static const Color surfaceDark = Color(0xFF1A1A2E);
+  static const Color cardDark = Color(0xFF16213E);
+
+  // Text
+  static const Color textPrimary = Color(0xFF1A1A2E);
+  static const Color textSecondary = Color(0xFF6B7280);
+  static const Color textPrimaryDark = Color(0xFFF0F0F8);
+  static const Color textSecondaryDark = Color(0xFF9CA3AF);
+
+  // Chat bubbles
+  static const Color bubbleOutgoing = Color(0xFF6C63FF);
+  static const Color bubbleIncoming = Color(0xFFEEEEF8);
+  static const Color bubbleIncomingDark = Color(0xFF252540);
+
+  // Status
+  static const Color online = Color(0xFF22C55E);
+  static const Color offline = Color(0xFF6B7280);
+  static const Color transferProgress = Color(0xFF00D4AA);
+  static const Color error = Color(0xFFEF4444);
+  static const Color warning = Color(0xFFF59E0B);
+  static const Color success = Color(0xFF22C55E);
+
+  // Divider
+  static const Color dividerLight = Color(0xFFE5E7EB);
+  static const Color dividerDark = Color(0xFF2D2D4E);
+}
+
+
+================================================================================
+FILE: app/core/app_theme/app_theme.dart
+================================================================================
+
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'app_colors.dart';
+import '../constants/app_constant.dart';
+
+class AppTheme {
+  AppTheme._();
+
+  static ThemeData get lightTheme {
+    return ThemeData(
+      useMaterial3: true,
+      brightness: Brightness.light,
+      colorScheme: ColorScheme.fromSeed(
+        seedColor: AppColors.primary,
+        brightness: Brightness.light,
+        background: AppColors.backgroundLight,
+        surface: AppColors.surfaceLight,
+        error: AppColors.error,
+      ),
+      scaffoldBackgroundColor: AppColors.backgroundLight,
+      appBarTheme: const AppBarTheme(
+        backgroundColor: AppColors.surfaceLight,
+        foregroundColor: AppColors.textPrimary,
+        elevation: 0,
+        centerTitle: false,
+        systemOverlayStyle: SystemUiOverlayStyle(
+          statusBarColor: Colors.transparent,
+          statusBarIconBrightness: Brightness.dark,
+        ),
+      ),
+      cardTheme: CardThemeData(
+        color: AppColors.cardLight,
+        elevation: AppConstant.cardElevation,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(AppConstant.borderRadius),
+        ),
+      ),
+      inputDecorationTheme: InputDecorationTheme(
+        filled: true,
+        fillColor: AppColors.backgroundLight,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(AppConstant.borderRadius),
+          borderSide: const BorderSide(color: AppColors.dividerLight),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(AppConstant.borderRadius),
+          borderSide: const BorderSide(color: AppColors.dividerLight),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(AppConstant.borderRadius),
+          borderSide: const BorderSide(color: AppColors.primary, width: 2),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(AppConstant.borderRadius),
+          borderSide: const BorderSide(color: AppColors.error),
+        ),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+      ),
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: AppColors.primary,
+          foregroundColor: Colors.white,
+          elevation: 0,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(AppConstant.borderRadius),
+          ),
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
+          textStyle: const TextStyle(
+            fontWeight: FontWeight.w600,
+            fontSize: 16,
+          ),
+        ),
+      ),
+      dividerTheme: const DividerThemeData(
+        color: AppColors.dividerLight,
+        thickness: 1,
+      ),
+      textTheme: _buildTextTheme(AppColors.textPrimary, AppColors.textSecondary),
+    );
+  }
+
+  static ThemeData get darkTheme {
+    return ThemeData(
+      useMaterial3: true,
+      brightness: Brightness.dark,
+      colorScheme: ColorScheme.fromSeed(
+        seedColor: AppColors.primary,
+        brightness: Brightness.dark,
+        background: AppColors.backgroundDark,
+        surface: AppColors.surfaceDark,
+        error: AppColors.error,
+      ),
+      scaffoldBackgroundColor: AppColors.backgroundDark,
+      appBarTheme: const AppBarTheme(
+        backgroundColor: AppColors.surfaceDark,
+        foregroundColor: AppColors.textPrimaryDark,
+        elevation: 0,
+        centerTitle: false,
+        systemOverlayStyle: SystemUiOverlayStyle(
+          statusBarColor: Colors.transparent,
+          statusBarIconBrightness: Brightness.light,
+        ),
+      ),
+      cardTheme: CardThemeData(
+        color: AppColors.cardDark,
+        elevation: AppConstant.cardElevation,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(AppConstant.borderRadius),
+        ),
+      ),
+      inputDecorationTheme: InputDecorationTheme(
+        filled: true,
+        fillColor: AppColors.surfaceDark,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(AppConstant.borderRadius),
+          borderSide: const BorderSide(color: AppColors.dividerDark),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(AppConstant.borderRadius),
+          borderSide: const BorderSide(color: AppColors.dividerDark),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(AppConstant.borderRadius),
+          borderSide: const BorderSide(color: AppColors.primary, width: 2),
+        ),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+      ),
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: AppColors.primary,
+          foregroundColor: Colors.white,
+          elevation: 0,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(AppConstant.borderRadius),
+          ),
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
+          textStyle: const TextStyle(
+            fontWeight: FontWeight.w600,
+            fontSize: 16,
+          ),
+        ),
+      ),
+      dividerTheme: const DividerThemeData(
+        color: AppColors.dividerDark,
+        thickness: 1,
+      ),
+      textTheme: _buildTextTheme(AppColors.textPrimaryDark, AppColors.textSecondaryDark),
+    );
+  }
+
+  static TextTheme _buildTextTheme(Color primary, Color secondary) {
+    return TextTheme(
+      displayLarge: TextStyle(fontWeight: FontWeight.w700, color: primary, fontSize: 32),
+      displayMedium: TextStyle(fontWeight: FontWeight.w700, color: primary, fontSize: 28),
+      headlineLarge: TextStyle(fontWeight: FontWeight.w700, color: primary, fontSize: 24),
+      headlineMedium: TextStyle(fontWeight: FontWeight.w600, color: primary, fontSize: 20),
+      titleLarge: TextStyle(fontWeight: FontWeight.w600, color: primary, fontSize: 18),
+      titleMedium: TextStyle(fontWeight: FontWeight.w500, color: primary, fontSize: 16),
+      bodyLarge: TextStyle(color: primary, fontSize: 16),
+      bodyMedium: TextStyle(color: primary, fontSize: 14),
+      bodySmall: TextStyle(color: secondary, fontSize: 12),
+      labelLarge: TextStyle(fontWeight: FontWeight.w600, color: primary, fontSize: 14),
+    );
+  }
+}
+
+
+================================================================================
+FILE: app/core/binding/initial_binding.dart
+================================================================================
+
+import 'package:get/get.dart';
+
+class InitialBinding extends Bindings {
+  @override
+  void dependencies() {}
+}
+
+
+================================================================================
+FILE: app/core/constants/app_constant.dart
+================================================================================
+
+class AppConstant {
+  // API Details
+  static const apiBaseUrl = 'https://api.example.com';
+  static const connectionTimeout = Duration(seconds: 30);
+
+  // App Strings
+  static const appName = 'My Awesome App';
+  static const welcomeMessage = 'Welcome back!';
+
+  // Numeric Layout Metrics
+  static const defaultPadding = 16.0;
+  static const borderRadiusMedium = 8.0;
+
+  // ── UI ────────────────────────────────────────────────────────────────────
+  static const double borderRadius = 12.0;
+  static const double cardElevation = 2.0;
+  static const Duration animDuration = Duration(milliseconds: 250);
+  static const double avatarSizeSmall = 36.0;
+  static const double avatarSizeMedium = 48.0;
+  static const double avatarSizeLarge = 72.0;
+}
+
+
+================================================================================
+FILE: app/core/constants/gap_constants.dart
+================================================================================
+
+import 'package:flutter/widgets.dart';
+
+/// Vertical gaps
+const gapH2 = SizedBox(height: 2);
+const gapH4 = SizedBox(height: 4);
+const gapH6 = SizedBox(height: 6);
+const gapH8 = SizedBox(height: 8);
+const gapH10 = SizedBox(height: 10);
+const gapH12 = SizedBox(height: 12);
+const gapH14 = SizedBox(height: 14);
+const gapH16 = SizedBox(height: 16);
+const gapH18 = SizedBox(height: 18);
+const gapH20 = SizedBox(height: 20);
+const gapH22 = SizedBox(height: 22);
+const gapH24 = SizedBox(height: 24);
+const gapH28 = SizedBox(height: 28);
+const gapH32 = SizedBox(height: 32);
+const gapH36 = SizedBox(height: 36);
+const gapH40 = SizedBox(height: 40);
+const gapH48 = SizedBox(height: 48);
+const gapH56 = SizedBox(height: 56);
+const gapH64 = SizedBox(height: 64);
+
+/// Horizontal gaps
+const gapW2 = SizedBox(width: 2);
+const gapW4 = SizedBox(width: 4);
+const gapW6 = SizedBox(width: 6);
+const gapW8 = SizedBox(width: 8);
+const gapW10 = SizedBox(width: 10);
+const gapW12 = SizedBox(width: 12);
+const gapW14 = SizedBox(width: 14);
+const gapW16 = SizedBox(width: 16);
+const gapW18 = SizedBox(width: 18);
+const gapW20 = SizedBox(width: 20);
+const gapW22 = SizedBox(width: 22);
+const gapW24 = SizedBox(width: 24);
+const gapW28 = SizedBox(width: 28);
+const gapW32 = SizedBox(width: 32);
+const gapW36 = SizedBox(width: 36);
+const gapW40 = SizedBox(width: 40);
+const gapW48 = SizedBox(width: 48);
+const gapW56 = SizedBox(width: 56);
+const gapW64 = SizedBox(width: 64);
+
+
+================================================================================
+FILE: app/core/helper/storage_helper.dart
+================================================================================
+
+import 'package:shared_preferences/shared_preferences.dart';
+
+class StorageHelper {
+  StorageHelper._internal();
+
+  static final StorageHelper _instance = StorageHelper._internal();
+
+  factory StorageHelper() => _instance;
+
+  late final SharedPreferences _prefs;
+
+  Future<void> init() async {
+    _prefs = await SharedPreferences.getInstance();
+  }
+
+  Future<bool> writeString(String key, String value) async {
+    return await _prefs.setString(key, value);
+  }
+
+  Future<bool> writeBool(String key, bool value) async {
+    return await _prefs.setBool(key, value);
+  }
+
+  Future<bool> writeInt(String key, int value) async {
+    return await _prefs.setInt(key, value);
+  }
+
+  String? readString(String key) {
+    return _prefs.getString(key);
+  }
+
+  bool? readBool(String key) {
+    return _prefs.getBool(key);
+  }
+
+  int? readInt(String key) {
+    return _prefs.getInt(key);
+  }
+
+  Future<bool> remove(String key) async {
+    return await _prefs.remove(key);
+  }
+
+  Future<bool> clearAll() async {
+    return await _prefs.clear();
+  }
+}
+
+
+================================================================================
+FILE: app/core/services/chat_service.dart
+================================================================================
+
+import 'package:flutter/foundation.dart';
+
+class ChatService {
+  static final ChatService _instance = ChatService._internal();
+
+  ChatService._internal() {
+    _init();
+  }
+
+  factory ChatService() {
+    return _instance;
+  }
+
+  void _init() {
+    // Initialize services here (e.g., WebSockets, Database)
+  }
+
+  void sendMessage(String message) {
+    debugPrint('Sending message: $message');
+  }
+}
+
+
+================================================================================
+FILE: app/core/utils/extensions.dart
+================================================================================
+
+import 'dart:math';
+import 'package:intl/intl.dart';
+
+extension StringExtensions on String {
+  /// Returns first N characters or the whole string if shorter.
+  String truncate(int maxLength, {String ellipsis = '…'}) {
+    if (length <= maxLength) return this;
+    return '${substring(0, maxLength)}$ellipsis';
+  }
+
+  /// Capitalize first letter.
+  String get capitalized =>
+      isEmpty ? this : '${this[0].toUpperCase()}${substring(1)}';
+
+  /// Returns initials from a display name (max 2 letters).
+  String get initials {
+    final parts = trim().split(RegExp(r'\s+'));
+    if (parts.isEmpty) return '';
+    if (parts.length == 1) return parts[0][0].toUpperCase();
+    return '${parts[0][0]}${parts[parts.length - 1][0]}'.toUpperCase();
+  }
+}
+
+extension DateTimeExtensions on DateTime {
+  /// Returns "Today", "Yesterday", or a formatted date.
+  String get chatDateLabel {
+    final now = DateTime.now();
+    final today = DateTime(now.year, now.month, now.day);
+    final date = DateTime(year, month, day);
+    final diff = today.difference(date).inDays;
+
+    if (diff == 0) return 'Today';
+    if (diff == 1) return 'Yesterday';
+    return DateFormat('MMM d, yyyy').format(this);
+  }
+
+  /// Short time like "14:32".
+  String get shortTime => DateFormat('HH:mm').format(this);
+
+  /// Full date-time like "Jun 1, 2026 14:32".
+  String get fullDatetime => DateFormat('MMM d, yyyy HH:mm').format(this);
+}
+
+extension IntExtensions on int {
+  /// Converts byte count to human-readable like "1.23 MB".
+  String get bytesFormatted {
+    if (this < 1024) return '$this B';
+    if (this < 1024 * 1024) return '${(this / 1024).toStringAsFixed(1)} KB';
+    if (this < 1024 * 1024 * 1024) {
+      return '${(this / (1024 * 1024)).toStringAsFixed(2)} MB';
+    }
+    return '${(this / (1024 * 1024 * 1024)).toStringAsFixed(2)} GB';
+  }
+
+  /// Converts seconds to "mm:ss".
+  String get secondsFormatted {
+    final m = (this ~/ 60).toString().padLeft(2, '0');
+    final s = (this % 60).toString().padLeft(2, '0');
+    return '$m:$s';
+  }
+}
+
+extension DoubleExtensions on double {
+  /// Rounds to N decimal places.
+  double roundTo(int places) {
+    final mod = pow(10.0, places);
+    return (this * mod).round() / mod;
+  }
+}
+
+
+================================================================================
+FILE: app/core/utils/logger.dart
+================================================================================
+
+import 'package:logger/logger.dart';
+// import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+
+/// App-wide logger that writes to console (debug) and Crashlytics (errors).
+class AppLogger {
+  AppLogger._();
+
+  static final Logger _logger = Logger(
+    printer: PrettyPrinter(
+      methodCount: 2,
+      errorMethodCount: 8,
+      lineLength: 120,
+      colors: true,
+      printEmojis: true,
+    ),
+  );
+
+  static void debug(String message) {
+    _logger.d(message);
+  }
+
+  static void info(String message) {
+    _logger.i(message);
+  }
+
+  static void warning(String message) {
+    _logger.w(message);
+  }
+
+  static void error(
+    String message, [
+    Object? error,
+    StackTrace? stackTrace,
+  ]) {
+    _logger.e(message, error: error, stackTrace: stackTrace);
+
+    // // Non-fatal error – report to Crashlytics
+    // FirebaseCrashlytics.instance.recordError(
+    //   error ?? message,
+    //   stackTrace,
+    //   reason: message,
+    //   fatal: false,
+    // );
+  }
+
+  static void fatal(String message, Object error, StackTrace stackTrace) {
+    _logger.f(message, error: error, stackTrace: stackTrace);
+    // FirebaseCrashlytics.instance.recordError(error, stackTrace, fatal: true);
+  }
+}
+
+
+================================================================================
+FILE: app/env/env.dart
+================================================================================
+
+import 'package:getx_customized_clean_project_structure/app/core/constants/app_constant.dart';
+
+enum Environment { dev, prod }
+
+class EnvConfig {
+  final Environment environment;
+  final String apiBaseUrl;
+  final String appName;
+  final bool showDebugBanner;
+
+  EnvConfig._internal({
+    required this.environment,
+    required this.apiBaseUrl,
+    required this.appName,
+    required this.showDebugBanner,
+  });
+
+  static late EnvConfig _instance;
+
+  static EnvConfig get instance => _instance;
+
+  static void initialize({required Environment environment}) {
+    switch (environment) {
+      case Environment.dev:
+        _instance = EnvConfig._internal(
+          environment: environment,
+          apiBaseUrl: 'https://api-dev.example.com',
+          appName: 'App (Dev)',
+          showDebugBanner: true,
+        );
+        break;
+      case Environment.prod:
+        _instance = EnvConfig._internal(
+          environment: environment,
+          apiBaseUrl: AppConstant.apiBaseUrl,
+          appName: AppConstant.appName,
+          showDebugBanner: false,
+        );
+        break;
+    }
+  }
+}
+
+
+================================================================================
+FILE: app/modules/home/data/model/home_model.dart
+================================================================================
+
+  class HomeModel {
+  final int id;
+  final String title;
+  final String description;
+  final String image;
+
+  HomeModel({
+    required this.id,
+    required this.title,
+    required this.description,
+    required this.image,
+  });
+
+  factory HomeModel.fromJson(Map<String, dynamic> json) {
+    return HomeModel(
+      id: json["id"],
+      title: json["title"],
+      description: json["description"],
+      image: json["image"],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      "id": id,
+      "title": title,
+      "description": description,
+      "image": image,
+    };
+  }
+}
+
+================================================================================
+FILE: app/modules/home/data/repository_impl/home_repository_impl.dart
+================================================================================
+
+import '../model/home_model.dart';
+import '../../domain/repository/home_repository.dart';
+
+class HomeRepositoryImpl implements HomeRepository {
+
+  @override
+  Future<List<HomeModel>> getProducts() async {
+
+    await Future.delayed(
+      const Duration(seconds: 1),
+    );
+
+    return [
+      HomeModel(
+        id: 1,
+        title: "MacBook Pro",
+        description: "Powerful laptop for developers",
+        image:
+            "https://picsum.photos/200",
+      ),
+      HomeModel(
+        id: 2,
+        title: "iPhone 16",
+        description: "Latest Apple smartphone",
+        image:
+            "https://picsum.photos/201",
+      ),
+      HomeModel(
+        id: 3,
+        title: "iPad Air",
+        description: "Portable productivity device",
+        image:
+            "https://picsum.photos/202",
+      ),
+    ];
+  }
+}
+
+================================================================================
+FILE: app/modules/home/domain/repository/home_repository.dart
+================================================================================
+
+import '../../data/model/home_model.dart';
+
+abstract class HomeRepository {
+  Future<List<HomeModel>> getProducts();
+}
+
+================================================================================
+FILE: app/modules/home/presentation/bindings/home_binding.dart
+================================================================================
+
+import 'package:get/get.dart';
+import '../controllers/home_controller.dart';
+import '../../domain/repository/home_repository.dart';
+import '../../data/repository_impl/home_repository_impl.dart';
+
+class HomeBinding extends Bindings {
+  @override
+  void dependencies() {
+    Get.lazyPut<HomeRepository>(() => HomeRepositoryImpl());
+
+    Get.lazyPut<HomeController>(() => HomeController());
+  }
+}
+
+
+================================================================================
+FILE: app/modules/home/presentation/components/widgets/empty_state.dart
+================================================================================
+
+import 'package:flutter/material.dart';
+
+import '../../../../../core/constants/gap_constants.dart';
+
+class EmptyState extends StatelessWidget {
+  const EmptyState({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    return Center(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(
+            Icons.inventory_2_outlined,
+            size: 48,
+            color: colorScheme.onSurface.withOpacity(0.3),
+          ),
+          gapH12,
+          Text(
+            'No products yet',
+            style: TextStyle(
+              color: colorScheme.onSurface.withOpacity(0.5),
+              fontSize: 15,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+
+================================================================================
+FILE: app/modules/home/presentation/components/widgets/error_state.dart
+================================================================================
+
+import 'package:flutter/material.dart';
+
+import '../../../../../core/constants/gap_constants.dart';
+
+class ErrorState extends StatelessWidget {
+  const ErrorState({super.key, required this.message, required this.onRetry});
+  final String message;
+  final VoidCallback onRetry;
+
+  @override
+  Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 32),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(
+              Icons.wifi_off_rounded,
+              size: 48,
+              color: colorScheme.error.withValues(alpha: 0.6),
+            ),
+            gapH16,
+            Text(
+              message,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: colorScheme.onSurface.withValues(alpha: 0.6),
+                fontSize: 14,
+              ),
+            ),
+            gapH20,
+            FilledButton.icon(
+              onPressed: onRetry,
+              icon: const Icon(Icons.refresh_rounded, size: 18),
+              label: const Text('Try again'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+
+================================================================================
+FILE: app/modules/home/presentation/components/widgets/loading_state.dart
+================================================================================
+
+import 'package:flutter/material.dart';
+
+class LoadingState extends StatelessWidget {
+  const LoadingState({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Center(child: CircularProgressIndicator());
+  }
+}
+
+
+================================================================================
+FILE: app/modules/home/presentation/components/widgets/product_card.dart
+================================================================================
+
+import 'package:flutter/material.dart';
+
+import '../../../../../core/constants/gap_constants.dart';
+import '../../../data/model/home_model.dart';
+import 'product_image.dart';
+
+class ProductCard extends StatelessWidget {
+  const ProductCard({
+    super.key,
+    required this.product,
+    required this.colorScheme,
+  });
+  final HomeModel product;
+  final ColorScheme colorScheme;
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: colorScheme.surfaceContainerLow,
+      borderRadius: BorderRadius.circular(16),
+      clipBehavior: Clip.antiAlias,
+      child: InkWell(
+        onTap: () {
+          // Navigate to product detail
+        },
+        child: Padding(
+          padding: const EdgeInsets.all(14),
+          child: Row(
+            children: [
+              ProductImage(imageUrl: product.image, colorScheme: colorScheme),
+              gapW14,
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      product.title,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 15,
+                      ),
+                    ),
+                    gapH4,
+                    Text(
+                      product.description,
+                      style: TextStyle(
+                        fontSize: 13,
+                        color: colorScheme.onSurface.withValues(alpha: 0.55),
+                        height: 1.4,
+                      ),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ],
+                ),
+              ),
+              gapW8,
+              Icon(
+                Icons.chevron_right_rounded,
+                color: colorScheme.onSurface.withValues(alpha: 0.3),
+                size: 20,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+
+================================================================================
+FILE: app/modules/home/presentation/components/widgets/product_image.dart
+================================================================================
+
+import 'package:flutter/material.dart';
+
+class ProductImage extends StatelessWidget {
+  const ProductImage({
+    super.key,
+    required this.imageUrl,
+    required this.colorScheme,
+  });
+  final String imageUrl;
+  final ColorScheme colorScheme;
+
+  @override
+  Widget build(BuildContext context) {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(10),
+      child: Image.network(
+        imageUrl,
+        width: 64,
+        height: 64,
+        fit: BoxFit.cover,
+        errorBuilder: (_, __, ___) => Container(
+          width: 64,
+          height: 64,
+          color: colorScheme.primaryContainer,
+          child: Icon(
+            Icons.image_rounded,
+            color: colorScheme.onPrimaryContainer,
+            size: 28,
+          ),
+        ),
+        loadingBuilder: (_, child, progress) {
+          if (progress == null) return child;
+          return Container(
+            width: 64,
+            height: 64,
+            color: colorScheme.surfaceContainerHighest,
+            child: Center(
+              child: SizedBox(
+                width: 20,
+                height: 20,
+                child: CircularProgressIndicator(
+                  strokeWidth: 2,
+                  color: colorScheme.primary,
+                ),
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+}
+
+
+================================================================================
+FILE: app/modules/home/presentation/components/widgets/search_bar.dart
+================================================================================
+
+import 'package:flutter/material.dart';
+
+import '../../../../../core/constants/gap_constants.dart';
+
+class SearchBarWidget extends StatelessWidget {
+  const SearchBarWidget({super.key, required this.colorScheme});
+  final ColorScheme colorScheme;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 46,
+      decoration: BoxDecoration(
+        color: colorScheme.surfaceContainerHighest,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Row(
+        children: [
+          gapW14,
+          Icon(
+            Icons.search_rounded,
+            color: colorScheme.onSurface.withValues(alpha: 0.4),
+            size: 20,
+          ),
+          gapW10,
+          Text(
+            'Search products…',
+            style: TextStyle(
+              color: colorScheme.onSurface.withValues(alpha: 0.4),
+              fontSize: 14,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+
+================================================================================
+FILE: app/modules/home/presentation/controllers/home_controller.dart
+================================================================================
+
+import 'package:get/get.dart';
+import '../../data/model/home_model.dart';
+import '../../domain/repository/home_repository.dart';
+
+class HomeController extends GetxController {
+  final HomeRepository repository = Get.find<HomeRepository>();
+
+  final RxList<HomeModel> products = <HomeModel>[].obs;
+
+  final RxBool isLoading = false.obs;
+  final RxnString error = RxnString();
+
+  @override
+  void onInit() {
+    super.onInit();
+    loadProducts();
+  }
+
+  Future<void> loadProducts() async {
+    isLoading.value = true;
+    error.value = null;
+
+    try {
+      products.value = await repository.getProducts();
+    } catch (e) {
+      error.value =
+          'Could not load products. Check your connection and try again.';
+    } finally {
+      isLoading.value = false;
+    }
+  }
+}
+
+
+================================================================================
+FILE: app/modules/home/presentation/views/home_view.dart
+================================================================================
+
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import '../../../../core/constants/gap_constants.dart';
+import '../controllers/home_controller.dart';
+import '../components/widgets/search_bar.dart';
+import '../components/widgets/empty_state.dart';
+import '../components/widgets/error_state.dart';
+import '../components/widgets/loading_state.dart';
+import '../components/widgets/product_card.dart';
+
+class HomeView extends GetView<HomeController> {
+  const HomeView({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+
+    return Scaffold(
+      backgroundColor: colorScheme.surface,
+      body: SafeArea(
+        child: CustomScrollView(
+          slivers: [_buildAppBar(colorScheme), _buildBody(colorScheme)],
+        ),
+      ),
+    );
+  }
+
+  SliverAppBar _buildAppBar(ColorScheme colorScheme) {
+    return SliverAppBar(
+      floating: true,
+      snap: true,
+      elevation: 0,
+      backgroundColor: colorScheme.surface,
+      title: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Good morning 👋',
+            style: TextStyle(
+              fontSize: 13,
+              color: colorScheme.onSurface.withValues(alpha: 0.5),
+              fontWeight: FontWeight.w400,
+            ),
+          ),
+          Text(
+            'Discover',
+            style: TextStyle(
+              fontSize: 22,
+              fontWeight: FontWeight.w700,
+              color: colorScheme.onSurface,
+            ),
+          ),
+        ],
+      ),
+      actions: [
+        IconButton(
+          onPressed: () => Get.toNamed('/profile'),
+          icon: CircleAvatar(
+            radius: 18,
+            backgroundColor: colorScheme.primaryContainer,
+            child: Icon(
+              Icons.person_rounded,
+              size: 18,
+              color: colorScheme.onPrimaryContainer,
+            ),
+          ),
+        ),
+        gapW8,
+      ],
+    );
+  }
+
+  Widget _buildBody(ColorScheme colorScheme) {
+    return Obx(() {
+      if (controller.isLoading.value) {
+        return const SliverFillRemaining(child: LoadingState());
+      }
+
+      if (controller.error.value != null) {
+        return SliverFillRemaining(
+          child: ErrorState(
+            message: controller.error.value!,
+            onRetry: controller.loadProducts,
+          ),
+        );
+      }
+
+      if (controller.products.isEmpty) {
+        return const SliverFillRemaining(child: EmptyState());
+      }
+
+      return SliverPadding(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        sliver: SliverList(
+          delegate: SliverChildBuilderDelegate((context, index) {
+            if (index == 0) {
+              return Padding(
+                padding: const EdgeInsets.only(bottom: 16),
+                child: SearchBarWidget(colorScheme: colorScheme),
+              );
+            }
+            final product = controller.products[index - 1];
+            return Padding(
+              padding: const EdgeInsets.only(bottom: 12),
+              child: ProductCard(product: product, colorScheme: colorScheme),
+            );
+          }, childCount: controller.products.length + 1),
+        ),
+      );
+    });
+  }
+}
+
+
+================================================================================
+FILE: app/modules/profile/data/model/profile_model.dart
+================================================================================
+
+class ProfileModel {
+  final String name;
+  final String email;
+  final String phone;
+  final String image;
+
+  ProfileModel({
+    required this.name,
+    required this.email,
+    required this.phone,
+    required this.image,
+  });
+
+  factory ProfileModel.fromJson(Map<String, dynamic> json) {
+    return ProfileModel(
+      name: json["name"],
+      email: json["email"],
+      phone: json["phone"],
+      image: json["image"],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      "name": name,
+      "email": email,
+      "phone": phone,
+      "image": image,
+    };
+  }
+}
+
+================================================================================
+FILE: app/modules/profile/data/repository_impl/profile_repository_impl.dart
+================================================================================
+
+import '../model/profile_model.dart';
+import '../../domain/repository/profile_repository.dart';
+
+class ProfileRepositoryImpl implements ProfileRepository {
+
+  @override
+  Future<ProfileModel> getProfile() async {
+
+    await Future.delayed(
+      const Duration(seconds: 1),
+    );
+
+    return ProfileModel(
+      name: "John Doe",
+      email: "john@example.com",
+      phone: "+1 234 567890",
+      image: "https://i.pravatar.cc/300",
+    );
+  }
+}
+
+================================================================================
+FILE: app/modules/profile/domain/repository/profile_repository.dart
+================================================================================
+
+import '../../data/model/profile_model.dart';
+
+abstract class ProfileRepository {
+  Future<ProfileModel> getProfile();
+}
+
+================================================================================
+FILE: app/modules/profile/presentation/bindings/profile_binding.dart
+================================================================================
+
+import 'package:get/get.dart';
+import '../controllers/profile_controller.dart';
+import '../../domain/repository/profile_repository.dart';
+import '../../data/repository_impl/profile_repository_impl.dart';
+
+class ProfileBinding extends Bindings {
+  @override
+  void dependencies() {
+    Get.lazyPut<ProfileRepository>(() => ProfileRepositoryImpl());
+
+    Get.lazyPut<ProfileController>(() => ProfileController());
+  }
+}
+
+
+================================================================================
+FILE: app/modules/profile/presentation/components/widgets/avatar.dart
+================================================================================
+
+import 'package:flutter/material.dart';
+
+class Avatar extends StatelessWidget {
+  const Avatar({
+    super.key,
+    required this.imageUrl,
+    required this.name,
+    required this.colorScheme,
+  });
+  final String imageUrl;
+  final String name;
+  final ColorScheme colorScheme;
+
+  String get initials {
+    final parts = name.trim().split(' ');
+    if (parts.length >= 2) return '${parts[0][0]}${parts[1][0]}'.toUpperCase();
+    return name.isNotEmpty ? name[0].toUpperCase() : '?';
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        Container(
+          width: 96,
+          height: 96,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: colorScheme.primaryContainer,
+            border: Border.all(color: colorScheme.surface, width: 3),
+            boxShadow: [
+              BoxShadow(
+                color: colorScheme.shadow.withValues(alpha: 0.08),
+                blurRadius: 12,
+                offset: const Offset(0, 4),
+              ),
+            ],
+          ),
+          child: ClipOval(
+            child: Image.network(
+              imageUrl,
+              fit: BoxFit.cover,
+              errorBuilder: (_, __, ___) => Center(
+                child: Text(
+                  initials,
+                  style: TextStyle(
+                    fontSize: 32,
+                    fontWeight: FontWeight.w700,
+                    color: colorScheme.onPrimaryContainer,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+        Positioned(
+          bottom: 0,
+          right: 0,
+          child: Container(
+            width: 28,
+            height: 28,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: colorScheme.primary,
+              border: Border.all(color: colorScheme.surface, width: 2),
+            ),
+            child: Icon(
+              Icons.camera_alt_rounded,
+              size: 13,
+              color: colorScheme.onPrimary,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+
+================================================================================
+FILE: app/modules/profile/presentation/components/widgets/error_state.dart
+================================================================================
+
+import 'package:flutter/material.dart';
+
+import '../../../../../core/constants/gap_constants.dart';
+
+class ErrorState extends StatelessWidget {
+  const ErrorState({super.key, required this.message, required this.onRetry});
+  final String message;
+  final VoidCallback onRetry;
+
+  @override
+  Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 32),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(
+              Icons.person_off_outlined,
+              size: 48,
+              color: colorScheme.error.withValues(alpha: 0.5),
+            ),
+            gapH16,
+            Text(
+              message,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: colorScheme.onSurface.withValues(alpha: 0.6),
+                fontSize: 14,
+              ),
+            ),
+            gapH20,
+            FilledButton.icon(
+              onPressed: onRetry,
+              icon: const Icon(Icons.refresh_rounded, size: 18),
+              label: const Text('Try again'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+
+================================================================================
+FILE: app/modules/profile/presentation/components/widgets/info_card.dart
+================================================================================
+
+import 'package:flutter/material.dart';
+
+import '../../../../../core/constants/gap_constants.dart';
+
+class InfoItem {
+  const InfoItem({
+    required this.icon,
+    required this.label,
+    required this.value,
+  });
+  final IconData icon;
+  final String label;
+  final String value;
+}
+
+class InfoCard extends StatelessWidget {
+  const InfoCard({super.key, required this.colorScheme, required this.items});
+  final ColorScheme colorScheme;
+  final List<InfoItem> items;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: colorScheme.surfaceContainerLow,
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: Column(
+        children: items.asMap().entries.map((entry) {
+          final index = entry.key;
+          final item = entry.value;
+          final isLast = index == items.length - 1;
+
+          return Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 14,
+                ),
+                child: Row(
+                  children: [
+                    Container(
+                      width: 36,
+                      height: 36,
+                      decoration: BoxDecoration(
+                        color: colorScheme.primaryContainer,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Icon(
+                        item.icon,
+                        size: 18,
+                        color: colorScheme.onPrimaryContainer,
+                      ),
+                    ),
+                    gapW14,
+                    Expanded(
+                      child: Text(
+                        item.label,
+                        style: const TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                    if (item.value.isNotEmpty)
+                      Text(
+                        item.value,
+                        style: TextStyle(
+                          fontSize: 13,
+                          color: colorScheme.onSurface.withValues(alpha: 0.45),
+                        ),
+                      ),
+                    gapW4,
+                    Icon(
+                      Icons.chevron_right_rounded,
+                      size: 18,
+                      color: colorScheme.onSurface.withValues(alpha: 0.3),
+                    ),
+                  ],
+                ),
+              ),
+              if (!isLast)
+                Divider(
+                  height: 1,
+                  indent: 66,
+                  color: colorScheme.outlineVariant.withValues(alpha: 0.5),
+                ),
+            ],
+          );
+        }).toList(),
+      ),
+    );
+  }
+}
+
+
+================================================================================
+FILE: app/modules/profile/presentation/components/widgets/info_item.dart
+================================================================================
+
+
+
+================================================================================
+FILE: app/modules/profile/presentation/controllers/profile_controller.dart
+================================================================================
+
+import 'package:get/get.dart';
+import '../../data/model/profile_model.dart';
+import '../../domain/repository/profile_repository.dart';
+
+class ProfileController extends GetxController {
+  final ProfileRepository repository = Get.find<ProfileRepository>();
+
+  final RxBool isLoading = false.obs;
+
+  final Rx<ProfileModel?> profile = Rxn<ProfileModel>();
+  final Rx<String?> error = Rxn<String>();
+
+  @override
+  void onInit() {
+    super.onInit();
+    loadProfile();
+  }
+
+  Future<void> loadProfile() async {
+    isLoading.value = true;
+    error.value = null;
+
+    try {
+      profile.value = await repository.getProfile();
+    } catch (e) {
+      error.value = 'Could not load profile. Please try again.';
+    } finally {
+      isLoading.value = false;
+    }
+  }
+}
+
+
+================================================================================
+FILE: app/modules/profile/presentation/views/profile_view.dart
+================================================================================
+
+import 'package:get/get.dart';
+import 'package:flutter/material.dart';
+import '../../../../core/constants/gap_constants.dart';
+import '../../../home/presentation/components/widgets/error_state.dart';
+import '../components/widgets/avatar.dart';
+import '../components/widgets/info_card.dart';
+import '../controllers/profile_controller.dart';
+
+class ProfileView extends GetView<ProfileController> {
+  const ProfileView({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
+    return Scaffold(
+      backgroundColor: colorScheme.surface,
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: colorScheme.surface,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios_new_rounded),
+          onPressed: () => Get.back(),
+        ),
+        title: const Text(
+          'Profile',
+          style: TextStyle(fontWeight: FontWeight.w600, fontSize: 17),
+        ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.edit_outlined),
+            tooltip: 'Edit profile',
+            onPressed: () {},
+          ),
+          gapW4,
+        ],
+      ),
+      body: Obx(() {
+        if (controller.isLoading.value) {
+          return const Center(child: CircularProgressIndicator());
+        }
+
+        if (controller.error.value != null) {
+          return ErrorState(
+            message: controller.error.value!,
+            onRetry: controller.loadProfile,
+          );
+        }
+
+        final profile = controller.profile.value;
+        if (profile == null) return const SizedBox.shrink();
+
+        return SingleChildScrollView(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+          child: Column(
+            children: [
+              gapH16,
+
+              Avatar(
+                imageUrl: profile.image,
+                name: profile.name,
+                colorScheme: colorScheme,
+              ),
+              gapH16,
+              Text(
+                profile.name,
+                style: const TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+              gapH4,
+              Text(
+                profile.email,
+                style: TextStyle(
+                  fontSize: 14,
+                  color: colorScheme.onSurface.withValues(alpha: 0.5),
+                ),
+              ),
+              gapH32,
+
+              InfoCard(
+                colorScheme: colorScheme,
+                items: [
+                  InfoItem(
+                    icon: Icons.mail_outline_rounded,
+                    label: 'Email',
+                    value: profile.email,
+                  ),
+                  InfoItem(
+                    icon: Icons.phone_outlined,
+                    label: 'Phone',
+                    value: profile.phone,
+                  ),
+                ],
+              ),
+              gapH16,
+
+              InfoCard(
+                colorScheme: colorScheme,
+                items: [
+                  InfoItem(
+                    icon: Icons.notifications_outlined,
+                    label: 'Notifications',
+                    value: 'Manage',
+                  ),
+                  InfoItem(
+                    icon: Icons.lock_outline_rounded,
+                    label: 'Privacy',
+                    value: 'View',
+                  ),
+                  InfoItem(
+                    icon: Icons.help_outline_rounded,
+                    label: 'Help & support',
+                    value: '',
+                  ),
+                ],
+              ),
+              gapH16,
+
+              SizedBox(
+                width: double.infinity,
+                child: OutlinedButton.icon(
+                  style: OutlinedButton.styleFrom(
+                    foregroundColor: colorScheme.error,
+                    side: BorderSide(
+                      color: colorScheme.error.withValues(alpha: 0.4),
+                    ),
+                    padding: const EdgeInsets.symmetric(vertical: 14),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                  onPressed: () {},
+                  icon: const Icon(Icons.logout_rounded, size: 18),
+                  label: const Text(
+                    'Sign out',
+                    style: TextStyle(fontWeight: FontWeight.w500),
+                  ),
+                ),
+              ),
+              gapH32,
+            ],
+          ),
+        );
+      }),
+    );
+  }
+}
+
+
+================================================================================
+FILE: app/network/api_client.dart
+================================================================================
+
+import 'package:dio/dio.dart';
+import '../env/env.dart';
+
+part 'api_client_usage.dart';
+
+class ApiClient {
+  late final Dio _dio;
+
+  ApiClient({List<Interceptor>? externalInterceptors}) {
+    final BaseOptions options = BaseOptions(
+      baseUrl: EnvConfig.instance.apiBaseUrl,
+      connectTimeout: const Duration(seconds: 10),
+      receiveTimeout: const Duration(seconds: 10),
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+    );
+
+    _dio = Dio(options);
+
+    _addInternalInterceptors();
+
+    if (externalInterceptors != null) {
+      _dio.interceptors.addAll(externalInterceptors);
+    }
+  }
+
+  void _addInternalInterceptors() {
+    _dio.interceptors.add(
+      InterceptorsWrapper(
+        onRequest: (options, handler) {
+          options.headers['X-App-Env'] = EnvConfig.instance.environment.name;
+          return handler.next(options);
+        },
+      ),
+    );
+
+    if (EnvConfig.instance.environment == Environment.dev) {
+      _dio.interceptors.add(
+        LogInterceptor(requestBody: true, responseBody: true),
+      );
+    }
+  }
+
+  void addInterceptors(List<Interceptor> interceptors) {
+    _dio.interceptors.addAll(interceptors);
+  }
+
+  Future<Response> get(
+    String path, {
+    Map<String, dynamic>? queryParameters,
+  }) async {
+    return await _dio.get(path, queryParameters: queryParameters);
+  }
+
+  Future<Response> post(String path, {dynamic data}) async {
+    return await _dio.post(path, data: data);
+  }
+}
+
+
+================================================================================
+FILE: app/network/api_client_usage.dart
+================================================================================
+
+
+part of 'api_client.dart';
+
+final apiClient = ApiClient(
+  externalInterceptors: [
+    // AuthInterceptor(), // Custom external class
+  ],
+);
+
+================================================================================
+FILE: app/routes/app_pages.dart
+================================================================================
+
+import 'package:get/get.dart';
+
+import '../modules/home/presentation/bindings/home_binding.dart';
+import '../modules/home/presentation/views/home_view.dart';
+import '../modules/profile/presentation/bindings/profile_binding.dart';
+import '../modules/profile/presentation/views/profile_view.dart';
+
+part 'app_routes.dart';
+
+class AppPages {
+  AppPages._();
+
+  static const INITIAL = Routes.HOME;
+
+  static final routes = [
+    GetPage(
+      name: _Paths.HOME,
+      page: () => const HomeView(),
+      binding: HomeBinding(),
+    ),
+    GetPage(
+      name: _Paths.PROFILE,
+      page: () => const ProfileView(),
+      binding: ProfileBinding(),
+    ),
+  ];
+}
+
+
+================================================================================
+FILE: app/routes/app_routes.dart
+================================================================================
+
+part of 'app_pages.dart';
+// DO NOT EDIT. This is code generated via package:get_cli/get_cli.dart
+
+abstract class Routes {
+  Routes._();
+  static const HOME = _Paths.HOME;
+  static const PROFILE = _Paths.PROFILE;
+}
+
+abstract class _Paths {
+  _Paths._();
+  static const HOME = '/home';
+  static const PROFILE = '/profile';
+}
+
+
+================================================================================
+FILE: main.dart
+================================================================================
+
+import 'package:flutter/material.dart';
+
+import 'package:get/get.dart';
+
+import 'app/core/app_theme/app_theme.dart';
+import 'app/core/helper/storage_helper.dart';
+import 'app/env/env.dart';
+import 'app/routes/app_pages.dart';
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  EnvConfig.initialize(environment: Environment.dev);
+
+  await StorageHelper().init();
+
+  runApp(
+    GetMaterialApp(
+      title: "Application",
+      initialRoute: AppPages.INITIAL,
+      getPages: AppPages.routes,
+      debugShowCheckedModeBanner: EnvConfig.instance.showDebugBanner,
+      theme: AppTheme.lightTheme,
+    ),
+  );
+}
+
